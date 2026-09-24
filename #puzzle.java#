@@ -1,0 +1,151 @@
+import java.util.Random;
+
+public class puzzle
+{
+    int[][] arr = new int[3][3];
+    int x = 0;
+    int y = 0;
+
+    public static void main(String[] args)
+    {
+	puzzle newPuzzle = new puzzle();
+	newPuzzle.print();
+    }
+    
+    public puzzle()
+    {
+	arr[0][0] = 0;
+	arr[0][1] = 1;
+	arr[0][2] = 2;
+	arr[1][0] = 3;
+	arr[1][1] = 4;
+	arr[1][2] = 5;
+	arr[2][0] = 6;
+	arr[2][1] = 7;
+	arr[2][2] = 8;
+    }
+
+    public void print()
+    {
+	for (int i=0;i<3;i++)
+	    {
+		for (int i2=0;i2<3;i2++)
+		    {
+			System.out.print(" " + arr[i][i2]);
+		    }
+		System.out.println("");
+	    }
+    	
+    }
+    
+    public void randomize(int length)
+    {
+	Random rand = new Random();
+	for (int i =0; i <length; i++)
+	    {
+		int num = rand.nextInt(4);
+		if (!move(num))
+		    i--;		
+	    }
+    }
+
+    public void findBlank()
+    {
+	for (int i=0;i<3;i++)
+	    {
+		for (int i2=0;i2<3;i2++)
+		    {
+			if (arr[i][i2] == 0){
+			    y = i;
+			    x = i2;
+			}
+		    }
+	    }
+    }
+    public void swap(int i11, int i12, int i21, int i22)
+    {
+	int temp = arr[i11][i12];
+	arr[i11][i12] = arr[i21][i22];
+	arr[i21][i22] = temp;
+    }
+    public boolean move(int num)
+    {
+	findBlank();
+	int i11 = y;
+		int i12 = x;
+		int i21 = y;
+		int i22 = x-1;
+
+	switch(num)
+	    {
+		/*
+		arr[0][0] = 0;
+		arr[0][1] = 1;
+		arr[0][2] = 2;
+		arr[1][0] = 3;
+		arr[1][1] = 4;
+		arr[1][2] = 5;
+		arr[2][0] = 6;
+		arr[2][1] = 7;
+		arr[2][2] = 8;*/
+
+	    case 1:
+		//move left
+		if (x == 0)
+		    return false;
+		//else
+		i11 = y;
+		i12 = x;
+		i21 = y;
+		i22 = x-1;
+
+		swap(i11, i12, i21, i22);
+		return true;
+		break;
+		//move down
+		if (y == 2)
+		    return false;
+		//else
+		i11 = y;
+		i12 = x;
+		i21 = y+1;
+		i22 = x;
+
+		swap(i11, i12, i21, i22);
+		return true;
+		break;
+	    case 3:
+		//move right
+		if (x == 2)
+		    return false;
+		//else
+		i11 = y;
+		i12 = x;
+		i21 = y;
+		i22 = x+1;
+
+		swap(i11, i12, i21, i22);
+		return true;
+		break;
+	    case 0:
+		//move up
+		if (y == 0)
+		    return false;
+		//else
+		i11 = y;
+		i12 = x;
+		i21 = y-1;
+		i22 = x;
+
+		swap(i11, i12, i21, i22);
+
+		return true;
+		break;
+	    default:
+		return false;
+		break;
+	    }
+
+	
+    }
+}
